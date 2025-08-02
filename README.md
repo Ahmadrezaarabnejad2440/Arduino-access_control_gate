@@ -1,55 +1,55 @@
-# 🏥 راه‌بند هوشمند بیمارستان با ESP8266
-این پروژه یک راه‌بند (Gate Barrier) ساده است که با ماژول التراسونیک HC-SR04 فاصله را اندازه‌گیری می‌کند و اگر فاصله‌ی جسم یا فردی کم‌تر از ۱۰ سانتی‌متر باشد، سروو موتور ۹۰ درجه می‌چرخد تا درب باز شود و پس از آن بسته می‌شود.
+# 🏥 Smart Gate Barrier with ESP8266
+
+This project implements a simple gate barrier that measures distance with an HC-SR04 ultrasonic sensor.  
+If an object or person is closer than 10 cm, the servo rotates 160° to open the gate and then closes after one second.
 
 ---
 
-## 🧰 قطعات مورد نیاز
-- برد ESP8266 (NodeMCU یا WeMos D1 mini)  
-- ماژول التراسونیک HC-SR04  
-- سروو موتور SG90 یا مشابه  
-- سیم‌کشی ساده + بردبورد یا PCB  
+## 🧰 Required Parts
+- ESP8266 board (NodeMCU or WeMos D1 mini)  
+- HC-SR04 ultrasonic sensor  
+- SG90 servo (or similar)  
+- Jumper wires + breadboard or PCB  
 
 ---
 
-## 🔌 نحوه سیم‌کشی
-| HC-SR04 | ESP8266 | توضیح |
-|---------|---------|-------|
-| VCC     | 5V / 3.3V | تغذیه |
-| GND     | GND     | مشترک |
-| Trig    | D1      | پین‌دیجیتال |
-| Echo    | D2      | پین‌دیجیتال |
+## 🔌 Wiring
+| HC-SR04 | ESP8266 | Note |
+|---------|---------|------|
+| VCC     | 5 V / 3.3 V | Power |
+| GND     | GND     | Common |
+| Trig    | D1      | Digital pin |
+| Echo    | D2      | Digital pin |
 
-| سروو موتور | ESP8266 |
-|------------|---------|
-| VCC        | 5V      |
-| GND        | GND     |
-| Signal     | D3      |
+| Servo | ESP8266 |
+|-------|---------|
+| VCC   | 5 V     |
+| GND   | GND     |
+| Signal| D3      |
 
-> برای سروو ۵ ولتی، اگر ESP شما ۳٫۳ ولتی است، ممکن است نیاز به منبع تغذیه خارجی داشته باشید.
-
----
-
-## ⚙️ نحوه کار
-1. بعد از آپلود کد، سریال‌مانیتور را با Baud Rate 9600 باز کنید.  
-2. دست خود یا جسم را جلوی سنسور بگیرید.  
-3. اگر فاصله کم‌تر از ۱۰ cm باشد، سروو به ۱۶۰° می‌چرخد (باز شدن راه‌بند).  
-4. بعد از ۱ ثانیه، سروو به ۰° برمی‌گردد (بسته شدن راه‌بند).
+> If your ESP8266 is 3.3 V logic and the servo is 5 V, power the servo from an external 5 V source.
 
 ---
 
-## 📝 نکات
-- می‌توانید آستانه‌ی فاصله را در خط `if (distance_cm < 10)` تغییر دهید.  
-- برای حالت واقعی، ممکن است نیاز به درایور یا رله برای موتورهای قوی‌تر داشته باشید.  
-- در صورت نیاز به حالت نگه‌داشتن درب، از یک دیتابیس ساده یا حافظه‌ی EEPROM می‌توان استفاده کرد.
+## ⚙️ How it works
+1. Open Serial Monitor at 9600 baud after uploading the sketch.  
+2. Place your hand or any object in front of the sensor.  
+3. If distance < 10 cm, the servo moves to 160° (gate open).  
+4. After 1 s the servo returns to 0° (gate closed).
 
 ---
 
-## 📦 نصب کتابخانه
-در Arduino IDE:
-Tools > Manage Libraries... > Search "ESP8266Servo" > Install
-
+## 📝 Tips
+- Change the threshold in `if (distance_cm < 10)` if needed.  
+- For real-world gates, you may need a driver or relay for bigger motors.  
+- To keep the gate open longer, use EEPROM or a simple state machine.
 
 ---
 
-## 📄 لایسنس
-MIT - استفاده و تغییر آزاد است، فقط ذکر منبع لطفاً درج شود.
+## 📦 Library Installation
+Arduino IDE:  Tools > Manage Libraries... > Search "ESP8266Servo" > Install
+
+
+---
+## 📄 License
+MIT – feel free to use and modify; please credit the source.
